@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AplicacionCitasMedicas</string>
+    <string name="btn_ToCamera">Camara</string>
+    <string name="txt_ToCamera">Prueba Camara</string>
 </resources>
