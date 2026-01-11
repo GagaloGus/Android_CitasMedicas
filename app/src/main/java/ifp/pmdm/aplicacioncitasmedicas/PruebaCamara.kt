@@ -33,9 +33,6 @@ class PruebaCamara : AppCompatActivity() {
             options.setOrientationLocked(true)
             options.setCaptureActivity(CaptureActivity::class.java)
             barcodeLauncher.launch(options)
-
-            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(intent, 1);
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -47,9 +44,20 @@ class PruebaCamara : AppCompatActivity() {
 
     private val barcodeLauncher = registerForActivityResult(ScanContract()) { result ->
         if (result.contents != null) {
-            binding.tvScan.text = "Scanned Ressult : ${result.contents}"
+            binding.tvScan.text = "${result.contents}"
+            if(binding.tvScan.text == "Ibuprofeno"){
+                binding.ivCameraView.setImageResource(R.drawable.ibu)
+            }else if(binding.tvScan.text == "Paracetamol"){
+                binding.ivCameraView.setImageResource(R.drawable.para)
+            }else if(binding.tvScan.text == "Omeprazol"){
+                binding.ivCameraView.setImageResource(R.drawable.ome)
+            }
+            else{
+                binding.tvScan.text = "No es un medicamento"
+                binding.ivCameraView.setImageResource(R.drawable.no_image)
+            }
         } else {
-            Toast.makeText(this, "cancelled", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Volviendo", Toast.LENGTH_LONG).show()
         }
     }
 }
