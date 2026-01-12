@@ -2,4 +2,20 @@
     <string name="app_name">AplicacionCitasMedicas</string>
     <string name="btn_ToCamera">Camara</string>
     <string name="txt_ToCamera">Prueba Camara</string>
+    <string name="txt_mainTitle">Mis Medicamentos</string>
+    <string name="txt_addMedTitle">Agregar nuevo medicamento</string>
+    <string name="txt_medNombre">Nombre del medicamento</string>
+    <string name="txt_medFrecuencia">Frecuencia</string>
+    <string name="txt_medDiaria">Diaria</string>
+    <string name="txt_medSemanal">Semanal</string>
+    <string name="txt_medMensual">Mensual</string>
+    <string name="txt_medDiaSemana">Dia de la semana</string>
+    <string name="txt_medHoraRecordatorio">Hora del recordatorio</string>
+    <string name="txt_medHoraSeleccion">Hora del recordatorio</string>
+    <string name="txt_medEscanerQR">Escanear codigo del medicamento</string>
+    <string name="txt_medEscanerAbrir">Abrir camara</string>
+    <string name="txt_medGuardarMed">Guardar medicamento</string>
+    <string name="txt_medSigFecha">Siguiente dosis</string>
+    <string name="txt_guardar">Guardar</string>
+    <string name="txt_Hora">Hora</string>
 </resources>

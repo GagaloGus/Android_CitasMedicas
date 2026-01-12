@@ -5,24 +5,20 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.google.android.material.timepicker.MaterialTimePicker
-import ifp.pmdm.aplicacioncitasmedicas.databinding.ActivityMainBinding
+import ifp.pmdm.aplicacioncitasmedicas.databinding.ActivityRedirBinding
 
-class MainActivity : AppCompatActivity() {
+class RedirActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityMainBinding
-
+    lateinit var binding: ActivityRedirBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding = ActivityMainBinding.inflate(layoutInflater)
         enableEdgeToEdge()
+        binding = ActivityRedirBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.mainBtnAgregarMed.setOnClickListener {
-            Utils.ChangeActivity(this, AgregarMedActivity::class.java)
+        binding.redirBtnVolver.setOnClickListener {
+            Utils.ChangeActivity(this, NotifActivity::class.java)
         }
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
