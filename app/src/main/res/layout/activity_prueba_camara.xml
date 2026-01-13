@@ -70,4 +70,5 @@
         app:layout_constraintEnd_toStartOf="@+id/gl_right"
         app:layout_constraintStart_toEndOf="@+id/btn_Camera"
         app:layout_constraintTop_toTopOf="@+id/gl_top" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

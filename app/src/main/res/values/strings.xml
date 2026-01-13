@@ -2,4 +2,10 @@
     <string name="app_name">AplicacionCitasMedicas</string>
     <string name="btn_ToCamera">Camara</string>
     <string name="txt_ToCamera">Prueba Camara</string>
+    <string name="tv_Main">Citas Medicas</string>
+    <string name="btn_AddMed">Añade medicamento</string>
+    <string name="tv_med">Medicamento prueba</string>
+    <string name="tv_med2">Medicamento que medica porque es un medicamento y medica porque es lo que hace :)</string>
+    <string name="tv_Dosis">Dosis: 600mg</string>
+    <string name="tv_NextUse">Proximo: 15 de Enero</string>
 </resources>

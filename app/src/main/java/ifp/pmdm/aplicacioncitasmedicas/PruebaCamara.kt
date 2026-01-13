@@ -28,7 +28,6 @@ class PruebaCamara : AppCompatActivity() {
         binding.btnCamera.setOnClickListener {
 
             val options = ScanOptions()
-            options.setPrompt("Scan any QR code of meds")
             options.setBeepEnabled(true)
             options.setOrientationLocked(true)
             options.setCaptureActivity(CaptureActivity::class.java)
