@@ -24,10 +24,9 @@
 
         <ImageView
             android:id="@+id/agr_btnVolverMenu"
-            android:layout_width="15dp"
+            android:layout_width="30dp"
             android:layout_height="29dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
+            android:layout_marginEnd="10dp"
             android:clickable="true"
             android:background="@drawable/icon_arrowleft" />
 
@@ -35,10 +34,9 @@
             android:id="@+id/agr_txtTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="left|center_vertical"
+            android:gravity="start|center_vertical"
             android:text="@string/txt_addMedTitle"
-            android:textSize="25sp"
-            android:layout_weight="1"/>
+            android:textSize="25sp"/>
     </LinearLayout>
 
 
@@ -81,6 +79,7 @@
 
 
         <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/agr_toggleGroupFreq"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginBottom="20dp"
@@ -117,13 +116,16 @@
             android:id="@+id/agr_txtlabelDiaSemana"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/txt_medDiaSemana" />
+            android:text="@string/txt_medDiaSemana"
+            android:visibility="gone" />
 
         <LinearLayout
+            android:id="@+id/agr_layoutDiasSemana"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginBottom="20dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <ToggleButton
                 android:id="@+id/agr_btnL"

@@ -20,6 +20,7 @@ import ifp.pmdm.aplicacioncitasmedicas.databinding.ActivityNotifBinding
 class NotifActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityNotifBinding
+
     companion object{
         const val MY_CHANNEL_ID = "myChannel"
         const val REDIR_CHANNEL_ID = "redirChannel"

@@ -54,4 +54,5 @@ dependencies {
     api("com.google.android.material:material:1.1.0-alpha06")
 
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
+    implementation("com.google.code.gson:gson:2.10.1")
 }
