@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/tv_Main"
+        android:text="@string/txt_mainTitle"
         android:textSize="30dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/gl_rightMain"
@@ -52,7 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/btn_AddMed"
+        android:text="@string/txt_addMedTitle"
         app:layout_constraintEnd_toStartOf="@+id/gl_rightMain"
         app:layout_constraintStart_toStartOf="@+id/gl_LeftMain"
         app:layout_constraintTop_toBottomOf="@+id/tv_TitleMain" />
@@ -146,4 +146,14 @@
         </LinearLayout>
     </ScrollView>
 
+    <Button
+        android:id="@+id/main_btnAgregarMed"
+        style="@style/CustomAddButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="59dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Agregar medicamento"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

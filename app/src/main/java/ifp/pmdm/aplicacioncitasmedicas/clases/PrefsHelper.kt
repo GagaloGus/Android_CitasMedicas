@@ -1,40 +1,31 @@
 package ifp.pmdm.aplicacioncitasmedicas.clases
 
 import android.content.Context
+import androidx.collection.ArrayMap
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import ifp.pmdm.aplicacioncitasmedicas.clases.Medicamento
 
 object PrefsHelper {
-    private const val PREF_NAME = "meds_pref"
-    private const val KEY_LISTA = "lista_meds"
-
+    const val PREF_NAME = "meds_pref"
     private val gson = Gson()
 
-    fun guardar(context: Context, med: Medicamento) {
-        guardarVarios(context, listOf(med))
-    }
-
-    fun guardarVarios(context: Context, lista: List<Medicamento>) {
-        //Se tienen que añadir todos de golpe cada vez
-        val lista = leer(context)
-        lista.addAll(lista)
-
-        val json = gson.toJson(lista)
-
-        //Rerellena las shared preferences
-        context
-            .getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-            .edit()
-            .putString(KEY_LISTA, json)
-            .apply()
-    }
-
-    fun leer(context: Context): MutableList<Medicamento> {
+    fun getAllMeds(context: Context): ArrayMap<String, Medicamento> {
         val prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        val json = prefs.getString(KEY_LISTA, null) ?: return mutableListOf()
 
-        val type = object : TypeToken<MutableList<Medicamento>>() {}.type
-        return gson.fromJson(json, type)
+        val resultado = ArrayMap<String, Medicamento>()
+
+        for ((key, value) in prefs.all){
+            if(value is String) {
+                try {
+                    //Transforma el json a objeto
+                    resultado[key] = gson.fromJson(value, Medicamento::class.java)
+                } catch (e: Exception) {
+                    //Json no valido
+                }
+            }
+        }
+
+        return resultado
     }
 }
-

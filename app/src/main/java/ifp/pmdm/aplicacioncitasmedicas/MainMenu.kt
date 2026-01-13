@@ -24,8 +24,15 @@ class MainMenu : AppCompatActivity() {
         binding = ActivityMainMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val preferencias = getSharedPreferences("meds_pref", MODE_PRIVATE)
+
+
         binding.btnAddMed.setOnClickListener {
             createCard();
+        }
+
+        binding.mainBtnAgregarMed.setOnClickListener {
+            Utils.ChangeActivity(this, AgregarMedActivity::class.java)
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->

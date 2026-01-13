@@ -18,6 +18,9 @@
     <string name="txt_medSigFecha">Siguiente dosis</string>
     <string name="txt_guardar">Guardar</string>
     <string name="txt_Hora">Hora</string>
+    <string name="txt_codigoScan">Codigo escaneado! %1$s</string>
+
+
     <string name="tv_med">Medicamento prueba</string>
     <string name="tv_med2">Medicamento que medica porque es un medicamento y medica porque es lo que hace :)</string>
     <string name="tv_Dosis">Dosis: 600mg</string>

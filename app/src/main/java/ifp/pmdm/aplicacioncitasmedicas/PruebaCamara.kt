@@ -18,6 +18,9 @@ class PruebaCamara : AppCompatActivity() {
 
     lateinit var binding: ActivityPruebaCamaraBinding
 
+    var onQRScanned: ((String) -> Unit)? = null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -26,6 +29,7 @@ class PruebaCamara : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnCamera.setOnClickListener {
+            onQRScanned = { texto -> binding.tvScan.text = texto}
 
             val options = ScanOptions()
             options.setBeepEnabled(true)
@@ -42,21 +46,8 @@ class PruebaCamara : AppCompatActivity() {
     }
 
     private val barcodeLauncher = registerForActivityResult(ScanContract()) { result ->
-        if (result.contents != null) {
-            binding.tvScan.text = "${result.contents}"
-            if(binding.tvScan.text == "Ibuprofeno"){
-                binding.ivCameraView.setImageResource(R.drawable.ibu)
-            }else if(binding.tvScan.text == "Paracetamol"){
-                binding.ivCameraView.setImageResource(R.drawable.para)
-            }else if(binding.tvScan.text == "Omeprazol"){
-                binding.ivCameraView.setImageResource(R.drawable.ome)
-            }
-            else{
-                binding.tvScan.text = "No es un medicamento"
-                binding.ivCameraView.setImageResource(R.drawable.no_image)
-            }
-        } else {
-            Toast.makeText(this, "Volviendo", Toast.LENGTH_LONG).show()
+        result.contents?.let {
+            onQRScanned?.invoke(it)
         }
     }
 }
