@@ -7,16 +7,26 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.scaleMatrix
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.gson.Gson
+import ifp.pmdm.aplicacioncitasmedicas.clases.Frecuencia
+import ifp.pmdm.aplicacioncitasmedicas.clases.Medicamento
+import ifp.pmdm.aplicacioncitasmedicas.clases.PrefsHelper
 import ifp.pmdm.aplicacioncitasmedicas.databinding.ActivityMainMenuBinding
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 
 class MainMenu : AppCompatActivity() {
     lateinit var binding: ActivityMainMenuBinding
+    val listaMedicamentos = mutableListOf<Medicamento>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,14 +34,28 @@ class MainMenu : AppCompatActivity() {
         binding = ActivityMainMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val preferencias = getSharedPreferences("meds_pref", MODE_PRIVATE)
+        val preferencias = getSharedPreferences(PrefsHelper.PREF_NAME, MODE_PRIVATE)
+        val gson = Gson()
 
-
-        binding.btnAddMed.setOnClickListener {
-            createCard();
+        if(preferencias.all.isNotEmpty()){
+            for ((key, value) in preferencias.all) {
+                try {
+                    if (value is String) {
+                        val med = gson.fromJson(value, Medicamento::class.java)
+                        listaMedicamentos.add(med)
+                        Toast.makeText(this, "MED CREADA: ${med.nombre}", Toast.LENGTH_SHORT).show()
+                        createCard(med)
+                    }
+                } catch (e: Exception) {
+                    Toast.makeText(this, "ERROR: ${e.message}", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+        else{
+            //TODO: Mostrar una pantallita que esta vacio
         }
 
-        binding.mainBtnAgregarMed.setOnClickListener {
+        binding.btnAddMed.setOnClickListener {
             Utils.ChangeActivity(this, AgregarMedActivity::class.java)
         }
 
@@ -41,90 +65,124 @@ class MainMenu : AppCompatActivity() {
             insets
         }
     }
-    private fun createCard(){
-        val layoutPrueba = LinearLayout(this);
-        layoutPrueba.orientation = LinearLayout.VERTICAL;
-        layoutPrueba.setBackgroundResource(R.color.dark_white)
-        layoutPrueba.setLayoutParams(LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            450
-        ));
-        binding.linearMain.addView(layoutPrueba);
+    private fun createCard(med: Medicamento) {
 
-        val layoutPruebaUP = LinearLayout(this);
-        layoutPruebaUP.orientation = LinearLayout.HORIZONTAL;
-        layoutPruebaUP.setLayoutParams(LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            150,
-            1f
-        ));
-        layoutPrueba.addView(layoutPruebaUP);
+        // layout principal
+        val linearPrimary = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            setBackgroundResource(R.color.dark_white)
+            val pad10 = Utils.dp(10)
+            setPadding(pad10, pad10, pad10, pad10)
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply {
+                setMargins(0,0,0, Utils.dp(15))
+            }
+        }
 
-        val imgCard = ImageView(this);
-        imgCard.setImageResource(R.drawable.ibu);
-        imgCard.setLayoutParams(LinearLayout.LayoutParams(
-            825,
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            1f
-        ));
-        imgCard.scaleType = ImageView.ScaleType.FIT_START
+        // layout del titulo y el boton de cerrar
+        val linearUp = LinearLayout(this).apply {
+            orientation = LinearLayout.HORIZONTAL
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                Utils.dp(38)
+            )
+        }
 
-        val btnClose = Button(this);
-        btnClose.setBackgroundResource(R.color.red);
-        btnClose.text = "X";
-        btnClose.setTextColor(R.color.white)
-        btnClose.setLayoutParams(LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            1f
-        ));
+        linearPrimary.addView(linearUp)
 
-        layoutPruebaUP.addView(imgCard);
-        layoutPruebaUP.addView(btnClose);
+        // texto titulo
+        val titulo = TextView(this).apply {
+            text = med.nombre
+            setTypeface(null, Typeface.BOLD)
+            gravity = Gravity.START or Gravity.CENTER_VERTICAL
+            layoutParams = LinearLayout.LayoutParams(
+                0,
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                1f
+            )
+        }
 
-        val textPrueba1 = TextView(this);
-        val textPrueba2 = TextView(this);
-        textPrueba1.text = getString(R.string.tv_med);
-        textPrueba1.setTypeface(null, Typeface.BOLD)
-        textPrueba1.setLayoutParams(LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            75
-        ));
-        textPrueba2.text = getString(R.string.tv_med2);
-        textPrueba2.setLayoutParams(LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            150
-        ));
-        layoutPrueba.addView(textPrueba1);
-        layoutPrueba.addView(textPrueba2);
+        // boton para borrar
+        val btnClose = Button(this).apply {
+            text = "X"
+            setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.red))
+            setTextColor(ContextCompat.getColorStateList(context, R.color.white))
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.MATCH_PARENT,
+            )
 
-        val linearLayoutDown = LinearLayout(this);
-        linearLayoutDown.orientation = LinearLayout.HORIZONTAL;
-        linearLayoutDown.setLayoutParams(LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            75
-        ));
-        layoutPrueba.addView(linearLayoutDown);
+            setOnClickListener {
+                //1: Borra la vista del layout
+                binding.linearMain.removeView(linearPrimary)
 
-        val tv_Dosis = TextView(this);
-        tv_Dosis.setTypeface(null, Typeface.BOLD);
-        tv_Dosis.text = "Dosis: 600mg";
-        tv_Dosis.setLayoutParams(LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            1f
-            ));
-        linearLayoutDown.addView(tv_Dosis);
+                //2: Borrar de las sharedPreferences
+                val preferencias = getSharedPreferences(PrefsHelper.PREF_NAME, MODE_PRIVATE)
+                preferencias.edit().remove(med.codigoEscaner).apply()
 
-        val tv_NextUse = TextView(this);
-        tv_NextUse.setTypeface(null, Typeface.BOLD);
-        tv_NextUse.text = "Proximo: 17 de Enero";
-        tv_NextUse.setLayoutParams(LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            1f
-        ));
+                Toast.makeText(this@MainMenu, "'${med.nombre}' eliminado", Toast.LENGTH_SHORT).show()
+            }
+        }
 
-        linearLayoutDown.addView(tv_NextUse);
+        linearUp.addView(titulo)
+        linearUp.addView(btnClose)
+
+        //Texto de la descripcion (SOLO SI HAY TEXTO)
+        if(med.descripcion != ""){
+            val descripcion = TextView(this).apply {
+                text = med.descripcion
+                layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                ).apply {
+                    setMargins(0, Utils.dp(2), 0, Utils.dp(2))
+                }
+            }
+
+            linearPrimary.addView(descripcion)
+        }
+
+        //Layout de abajo
+        val linearDown = LinearLayout(this).apply {
+            orientation = LinearLayout.HORIZONTAL
+            gravity = Gravity.BOTTOM
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+        }
+
+        linearPrimary.addView(linearDown)
+
+        //Texto de la dosis
+        val dosis = TextView(this).apply {
+            text = med.dosis
+            setTypeface(null, Typeface.BOLD)
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                1f
+            )
+        }
+
+        val formatoDia = SimpleDateFormat("EEE dd MMM HH:mm", Locale("es", "ES"))
+        //Texto de la siguiente dosis
+        val nextUse = TextView(this).apply {
+            text = "Siguiente dosis: ${formatoDia.format(med.getFechaSiguiente())}"
+            setTypeface(null, Typeface.BOLD)
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                1f
+            )
+        }
+
+        linearDown.addView(dosis)
+        linearDown.addView(nextUse)
+
+        // Añade el layout principal al layout del scrollview
+        binding.linearMain.addView(linearPrimary)
     }
 }

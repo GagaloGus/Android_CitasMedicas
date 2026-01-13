@@ -1,11 +1,65 @@
 package ifp.pmdm.aplicacioncitasmedicas.clases
 
+import java.util.Date
+import java.util.Calendar
+
+enum class Frecuencia{
+    DIA, SEMANA, MES, NADA
+}
+
 data class Medicamento(
     val nombre:String,
-    val frequencia:String = "dia",
-    val diasSemana:List<String> = listOf("L"),
+    val descripcion: String = "",
+    val frecuencia: Frecuencia = Frecuencia.DIA,
+    val dosis:String,
+    val diasSemana:List<Int> = listOf(),
 
     val hora:Int = 0,
     val min:Int = 0,
     val codigoEscaner: String
-)
+) {
+
+    fun getFechaSiguiente(): Date{
+        val currentTime = Calendar.getInstance()
+
+        val nextTime = when (frecuencia) {
+            Frecuencia.MES -> {
+                val cal = currentTime.clone() as Calendar
+                cal.add(Calendar.MONTH, 1)
+                cal
+            }
+
+            Frecuencia.SEMANA ->{
+                val cal = currentTime.clone() as Calendar
+                val currentWeekDay = cal.get(Calendar.DAY_OF_WEEK)
+                var nextDay = 0
+
+                var i = currentWeekDay
+                while (true){
+                    if(diasSemana.contains(i))
+                        break
+
+                    i+=1
+                    nextDay += 1
+                    if(i > Calendar.SATURDAY)
+                        i = Calendar.SUNDAY
+                }
+
+                cal.add(Calendar.DAY_OF_MONTH, nextDay)
+                cal
+            }
+
+            //Fallback a DIA
+            else -> {
+                val cal = currentTime.clone() as Calendar
+                cal.add(Calendar.DAY_OF_MONTH, 1)
+                cal
+            }
+        }
+
+        nextTime.add(Calendar.HOUR, hora)
+        nextTime.add(Calendar.MINUTE, min)
+        return nextTime.time
+    }
+}
+
