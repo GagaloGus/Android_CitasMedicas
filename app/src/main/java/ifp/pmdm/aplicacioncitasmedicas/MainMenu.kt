@@ -58,7 +58,9 @@ class MainMenu : AppCompatActivity() {
         binding.btnAddMed.setOnClickListener {
             Utils.ChangeActivity(this, AgregarMedActivity::class.java)
         }
-
+        binding.btnNoti.setOnClickListener {
+            Utils.ChangeActivity(this, RedirActivity::class.java)
+        }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
