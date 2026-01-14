@@ -34,9 +34,6 @@
             android:name=".NotifActivity"
             android:exported="false" />
         <activity
-            android:name=".PruebaCamara"
-            android:exported="false" />
-        <activity
             android:name=".MainMenu"
             android:exported="true">
             <intent-filter>

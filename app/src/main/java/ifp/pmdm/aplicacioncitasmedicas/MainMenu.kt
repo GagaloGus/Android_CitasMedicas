@@ -21,6 +21,7 @@ import ifp.pmdm.aplicacioncitasmedicas.clases.PrefsHelper
 import ifp.pmdm.aplicacioncitasmedicas.databinding.ActivityMainMenuBinding
 import java.text.SimpleDateFormat
 import java.util.Locale
+import androidx.core.content.edit
 
 
 class MainMenu : AppCompatActivity() {
@@ -120,7 +121,7 @@ class MainMenu : AppCompatActivity() {
 
                 //2: Borrar de las sharedPreferences
                 val preferencias = getSharedPreferences(PrefsHelper.PREF_NAME, MODE_PRIVATE)
-                preferencias.edit().remove(med.codigoEscaner).apply()
+                preferencias.edit { remove(med.codigoEscaner) }
 
                 Toast.makeText(this@MainMenu, "'${med.nombre}' eliminado", Toast.LENGTH_SHORT).show()
             }
@@ -170,7 +171,7 @@ class MainMenu : AppCompatActivity() {
         val formatoDia = SimpleDateFormat("EEE dd MMM HH:mm", Locale("es", "ES"))
         //Texto de la siguiente dosis
         val nextUse = TextView(this).apply {
-            text = "Siguiente dosis: ${formatoDia.format(med.getFechaSiguiente())}"
+            text = "Siguiente dosis: ${formatoDia.format(med.ultimaFecha)}"
             setTypeface(null, Typeface.BOLD)
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,

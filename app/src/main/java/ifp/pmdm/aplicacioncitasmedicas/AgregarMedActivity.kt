@@ -76,7 +76,11 @@ class AgregarMedActivity : AppCompatActivity() {
         }
 
         binding.agrBtnAbrirCamara.setOnClickListener {
-            openQRscanner()
+            //openQRscanner()
+            codigoQR = "Ibuprofeno"
+
+            binding.agrTxtcodeQR.visibility = View.VISIBLE
+            binding.agrTxtcodeQR.setText(getString(R.string.txt_codigoScan, codigoQR))
         }
 
         binding.agrBtnVolverMenu.setOnClickListener {

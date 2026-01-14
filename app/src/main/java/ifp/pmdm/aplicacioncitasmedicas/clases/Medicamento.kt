@@ -16,8 +16,18 @@ data class Medicamento(
 
     val hora:Int = 0,
     val min:Int = 0,
-    val codigoEscaner: String
+    val codigoEscaner: String,
 ) {
+    lateinit var ultimaFecha: Date
+
+    //Se llama justo al crear el objeto
+    init{
+        actualizarUltimaFecha()
+    }
+
+    fun actualizarUltimaFecha(){
+        ultimaFecha = getFechaSiguiente()
+    }
 
     fun getFechaSiguiente(): Date{
         val currentTime = Calendar.getInstance()
@@ -52,13 +62,19 @@ data class Medicamento(
             //Fallback a DIA
             else -> {
                 val cal = currentTime.clone() as Calendar
-                cal.add(Calendar.DAY_OF_MONTH, 1)
+                val nowHour = cal.get(Calendar.HOUR_OF_DAY)
+                val nowMin = cal.get(Calendar.MINUTE)
+
+                //Si la hora es menor a la hora actual, se le añade un dia
+                if(hora < nowHour ||
+                   (hora == nowHour && min < nowMin))
+                    cal.add(Calendar.DAY_OF_MONTH, 1)
                 cal
             }
         }
 
-        nextTime.add(Calendar.HOUR, hora)
-        nextTime.add(Calendar.MINUTE, min)
+        nextTime.set(Calendar.HOUR_OF_DAY, hora)
+        nextTime.set(Calendar.MINUTE, min)
         return nextTime.time
     }
 }
