@@ -1,5 +1,6 @@
 package ifp.pmdm.aplicacioncitasmedicas.clases
 
+import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Calendar
 
@@ -18,7 +19,7 @@ data class Medicamento(
     val min:Int = 0,
     val codigoEscaner: String,
 ) {
-    lateinit var ultimaFecha: Date
+    private lateinit var ultimaFecha: Date
 
     //Se llama justo al crear el objeto
     init{
@@ -29,18 +30,35 @@ data class Medicamento(
         ultimaFecha = getFechaSiguiente()
     }
 
+    fun getUltimaFecha(): Date{
+        return ultimaFecha
+    }
+
+    fun getUltimaFechaString(format:String = "EEE dd MMM HH:mm"): String{
+        val formatoDia = SimpleDateFormat(format)
+        return formatoDia.format(ultimaFecha)
+    }
+
+    fun getUltimaFechaMillis(): Long{
+        val cal = Calendar.getInstance()
+        cal.time = ultimaFecha
+        return cal.timeInMillis
+    }
+
     fun getFechaSiguiente(): Date{
         val currentTime = Calendar.getInstance()
+        val nowHour = currentTime.get(Calendar.HOUR_OF_DAY)
+        val nowMin = currentTime.get(Calendar.MINUTE)
+
+        val cal = currentTime.clone() as Calendar
 
         val nextTime = when (frecuencia) {
             Frecuencia.MES -> {
-                val cal = currentTime.clone() as Calendar
                 cal.add(Calendar.MONTH, 1)
                 cal
             }
 
             Frecuencia.SEMANA ->{
-                val cal = currentTime.clone() as Calendar
                 val currentWeekDay = cal.get(Calendar.DAY_OF_WEEK)
                 var nextDay = 0
 
@@ -61,13 +79,9 @@ data class Medicamento(
 
             //Fallback a DIA
             else -> {
-                val cal = currentTime.clone() as Calendar
-                val nowHour = cal.get(Calendar.HOUR_OF_DAY)
-                val nowMin = cal.get(Calendar.MINUTE)
-
                 //Si la hora es menor a la hora actual, se le añade un dia
                 if(hora < nowHour ||
-                   (hora == nowHour && min < nowMin))
+                  (hora == nowHour && min < nowMin))
                     cal.add(Calendar.DAY_OF_MONTH, 1)
                 cal
             }
@@ -75,6 +89,8 @@ data class Medicamento(
 
         nextTime.set(Calendar.HOUR_OF_DAY, hora)
         nextTime.set(Calendar.MINUTE, min)
+        nextTime.set(Calendar.SECOND, 0)
+        nextTime.set(Calendar.MILLISECOND, 0)
         return nextTime.time
     }
 }

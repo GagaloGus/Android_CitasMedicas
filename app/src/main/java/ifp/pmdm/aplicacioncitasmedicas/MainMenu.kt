@@ -168,10 +168,9 @@ class MainMenu : AppCompatActivity() {
             )
         }
 
-        val formatoDia = SimpleDateFormat("EEE dd MMM HH:mm", Locale("es", "ES"))
         //Texto de la siguiente dosis
         val nextUse = TextView(this).apply {
-            text = "Siguiente dosis: ${formatoDia.format(med.ultimaFecha)}"
+            text = "Siguiente dosis: ${med.getUltimaFechaString()}"
             setTypeface(null, Typeface.BOLD)
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
