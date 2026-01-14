@@ -7,4 +7,103 @@
     android:layout_height="match_parent"
     tools:context=".PermisosActivity">
 
+    <ImageView
+        android:id="@+id/imglogo"
+        android:layout_width="128dp"
+        android:layout_height="99dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/mediscan"
+        tools:layout_editor_absoluteY="73dp" />
+
+    <TextView
+        android:id="@+id/texNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/texNombre"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="158dp" />
+
+    <TextView
+        android:id="@+id/texDescripcion"
+        android:layout_width="336dp"
+        android:layout_height="47dp"
+        android:gravity="center"
+        android:text="@string/texDescripcion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="217dp" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="63dp"
+        android:layout_height="60dp"
+        app:srcCompat="@drawable/notificacion"
+        tools:layout_editor_absoluteX="27dp"
+        tools:layout_editor_absoluteY="302dp" />
+
+    <TextView
+        android:id="@+id/texNotificacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/texNotificacion"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="117dp"
+        tools:layout_editor_absoluteY="302dp" />
+
+    <TextView
+        android:id="@+id/texNotidescripcion"
+        android:layout_width="272dp"
+        android:layout_height="38dp"
+        android:text="@string/texNotidescripcion"
+        tools:layout_editor_absoluteX="117dp"
+        tools:layout_editor_absoluteY="321dp" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="73dp"
+        android:layout_height="66dp"
+        app:srcCompat="@drawable/noticamara"
+        tools:layout_editor_absoluteX="27dp"
+        tools:layout_editor_absoluteY="391dp" />
+
+    <TextView
+        android:id="@+id/texCamara"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/texCamara"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="115dp"
+        tools:layout_editor_absoluteY="385dp" />
+
+    <TextView
+        android:id="@+id/texDescamara"
+        android:layout_width="278dp"
+        android:layout_height="53dp"
+        android:text="@string/texDescamara"
+        tools:layout_editor_absoluteX="117dp"
+        tools:layout_editor_absoluteY="404dp" />
+
+    <Button
+        android:id="@+id/btnConceder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btnConceder"
+        tools:layout_editor_absoluteX="108dp"
+        tools:layout_editor_absoluteY="494dp" />
+
+    <Button
+        android:id="@+id/btnOmitir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btnOmitir"
+        tools:layout_editor_absoluteX="297dp"
+        tools:layout_editor_absoluteY="641dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
