@@ -1,19 +1,12 @@
 package ifp.pmdm.aplicacioncitasmedicas
 
-import android.app.AlarmManager
 import android.app.AlertDialog
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationCompat
 import androidx.core.content.edit
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -25,22 +18,13 @@ import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
 import ifp.pmdm.aplicacioncitasmedicas.clases.Frecuencia
 import ifp.pmdm.aplicacioncitasmedicas.clases.Medicamento
-import ifp.pmdm.aplicacioncitasmedicas.clases.Notificacion
 import ifp.pmdm.aplicacioncitasmedicas.clases.PrefsHelper
-import ifp.pmdm.aplicacioncitasmedicas.clases.codigoExtraKey
-import ifp.pmdm.aplicacioncitasmedicas.clases.defaultChannelID
-import ifp.pmdm.aplicacioncitasmedicas.clases.messageExtraKey
-import ifp.pmdm.aplicacioncitasmedicas.clases.notificationID
-import ifp.pmdm.aplicacioncitasmedicas.clases.titleExtraKey
 import ifp.pmdm.aplicacioncitasmedicas.databinding.ActivityAgregarMedBinding
 import java.util.Calendar
-import java.util.Date
-import kotlin.math.min
 
 class AgregarMedActivity : AppCompatActivity() {
     lateinit var binding: ActivityAgregarMedBinding
     lateinit var timePicker: MaterialTimePicker
-
     lateinit var preferencias: SharedPreferences
     var frecuenciaMed = Frecuencia.NADA
     var codigoQR = ""
@@ -52,10 +36,14 @@ class AgregarMedActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityAgregarMedBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.agrTxtcodeQR.visibility = View.GONE
-        
-        crearCanalNotificacion()
 
+        //Hace desaparecer el texto que muestra la info escaneada
+        binding.agrTxtcodeQR.visibility = View.GONE
+
+        //Crea un canal de notificaciones
+        Utils.crearCanalNotificacion(this)
+
+        //Obtiene las shared preferences
         preferencias = getSharedPreferences(PrefsHelper.PREF_NAME, MODE_PRIVATE)
 
         //TimePicker para la hora
@@ -74,6 +62,7 @@ class AgregarMedActivity : AppCompatActivity() {
             }
         }
 
+        //Checkea que frecuencia hemos elegido
         binding.agrToggleGroupFreq.addOnButtonCheckedListener { _, checkedId, isChecked ->
             if (isChecked) {
                 when (checkedId) {
@@ -92,14 +81,12 @@ class AgregarMedActivity : AppCompatActivity() {
             }
         }
 
+        //Abre el escaner
         binding.agrBtnAbrirCamara.setOnClickListener {
-            //openQRscanner()
-            codigoQR = "Ibuprofeno"
-
-            binding.agrTxtcodeQR.visibility = View.VISIBLE
-            binding.agrTxtcodeQR.setText(getString(R.string.txt_codigoScan, codigoQR))
+            openQRscanner()
         }
 
+        //Boton para volver al menu
         binding.agrBtnVolverMenu.setOnClickListener {
             Utils.ChangeActivity(this, MainMenu::class.java)
         }
@@ -109,44 +96,6 @@ class AgregarMedActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-    }
-
-
-    fun scheduleNotification(med: Medicamento){
-        val intent = Intent(applicationContext, Notificacion::class.java)
-        val title = "Te toca tomar ${med.nombre}!!!"
-        val message = "${String.format("%02d:%02d", med.hora, med.min)} // Dosis: ${med.dosis}"
-        intent.putExtra(titleExtraKey, title)
-        intent.putExtra(messageExtraKey, message)
-        intent.putExtra(codigoExtraKey, med.codigoEscaner)
-
-        val pendingIntent = PendingIntent.getBroadcast(
-            applicationContext,
-            notificationID,
-            intent,
-            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-        )
-
-        val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
-        alarmManager.setExactAndAllowWhileIdle(
-            AlarmManager.RTC_WAKEUP,
-            med.getUltimaFechaMillis(),
-            pendingIntent
-        )
-
-        Toast.makeText(this, "Notificacion aplazada a: ${med.getUltimaFechaString()} (${Math.floor((med.getUltimaFechaMillis()/60).toDouble())}s)", Toast.LENGTH_SHORT).show()
-    }
-
-    fun crearCanalNotificacion(){
-        val channel = NotificationChannel(
-            defaultChannelID,
-            "Notif channel",
-            NotificationManager.IMPORTANCE_DEFAULT
-        )
-        channel.description = "Canal de notificaciones default"
-
-        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.createNotificationChannel(channel)
     }
 
     fun mostrarAlertaCrear(title: String, message: String){
@@ -205,7 +154,8 @@ class AgregarMedActivity : AppCompatActivity() {
             putString(codigoQR, jsonData)
         }
 
-        scheduleNotification(newMed)
+        Utils.scheduleNotification(this, newMed)
+
         mostrarAlertaCrear(
             "Medicamento creado correctamente",
             "Nombre: ${newMed.nombre}\nDosis: ${newMed.dosis}\nSiguiente dosis: ${newMed.getUltimaFechaString()}"

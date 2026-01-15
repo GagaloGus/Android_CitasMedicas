@@ -61,7 +61,9 @@
         android:id="@+id/ly_RedirInfo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"></LinearLayout>
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp"></LinearLayout>
 
     <TextView
         android:id="@+id/tv_RedirTitulo"
@@ -82,8 +84,8 @@
         android:layout_height="51dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="3dp"
-        android:gravity="center"
-        android:text="Nombre med"
+        android:gravity="center|center_vertical"
+        android:text="@string/txt_recordatorioNombreMed"
         android:textAlignment="textStart"
         android:textColor="@color/white"
         android:textSize="20dp"
@@ -100,7 +102,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="6dp"
         android:gravity="center"
-        android:text="Dosis med"
+        android:text="@string/txt_recordatorioDosisMed"
         android:textAlignment="textStart"
         android:textColor="@color/white"
         android:textSize="20dp"
@@ -116,7 +118,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:gravity="center"
-        android:text="Hora med"
+        android:text="@string/txt_recordatorioHoraMed"
         android:textAlignment="textStart"
         android:textColor="@color/white"
         android:textSize="20dp"
@@ -169,24 +171,14 @@
         android:id="@+id/tv_Redir_ressult"
         android:layout_width="319dp"
         android:layout_height="28dp"
+        android:layout_marginBottom="40dp"
         android:gravity="center"
         android:text=""
         android:textColor="@color/white"
         android:textSize="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_RedirVolver"
+        app:layout_constraintBottom_toBottomOf="@+id/ly_RedirInfo"
         app:layout_constraintEnd_toStartOf="@+id/gl_rightRedir"
         app:layout_constraintStart_toStartOf="@+id/gl_LeftRedir"
         app:layout_constraintTop_toBottomOf="@+id/iv_RedirBell2" />
-
-    <Button
-        android:id="@+id/btn_RedirVolver"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        android:text="@string/btn_back"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/gl_bottomRedir"
-        app:layout_constraintEnd_toStartOf="@+id/gl_rightRedir"
-        app:layout_constraintStart_toStartOf="@+id/gl_LeftRedir" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

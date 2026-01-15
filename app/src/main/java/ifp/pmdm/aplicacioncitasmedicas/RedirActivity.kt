@@ -11,44 +11,48 @@ import com.google.gson.Gson
 import com.journeyapps.barcodescanner.CaptureActivity
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
+import com.journeyapps.barcodescanner.Util
 import ifp.pmdm.aplicacioncitasmedicas.clases.Medicamento
 import ifp.pmdm.aplicacioncitasmedicas.clases.PrefsHelper
+import ifp.pmdm.aplicacioncitasmedicas.clases.codigoExtraKey
 import ifp.pmdm.aplicacioncitasmedicas.databinding.ActivityRedirBinding
 
 class RedirActivity : AppCompatActivity() {
     lateinit var binding: ActivityRedirBinding
+
+    lateinit var medicamento: Medicamento
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityRedirBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.btnRedirVolver.visibility = View.GONE
 
         binding.ivRedirCam.setOnClickListener {
             openQRscanner()
         }
 
-        binding.btnRedirVolver.setOnClickListener {
-            Utils.ChangeActivity(this, NotifActivity::class.java)
-        }
-
         val preferencias = getSharedPreferences(PrefsHelper.PREF_NAME, MODE_PRIVATE)
         val gson = Gson()
 
+        val codigoQR = intent.getStringExtra(codigoExtraKey)
+
         for ((key, value) in preferencias.all) {
             try {
-                if (value is String) {
-                    val med = gson.fromJson(value, Medicamento::class.java)
-                    binding.tvRedirMedName.text = med.nombre
-                    binding.tvRedirDosisMed.text = med.dosis
-                    binding.tvRedirHoraMed.setText(String.format("%02d:%02d", med.hora, med.min))
+                if (value is String && key == codigoQR) {
+                    medicamento = gson.fromJson(value, Medicamento::class.java)
+
+                    binding.tvRedirMedName.text = getString(R.string.txt_recordatorioNombreMed, medicamento.nombre)
+                    binding.tvRedirDosisMed.text = getString(R.string.txt_recordatorioDosisMed, medicamento.dosis)
+                    binding.tvRedirHoraMed.text = getString(R.string.txt_recordatorioHoraMed,
+            String.format("%02d:%02d", medicamento.hora, medicamento.min
+                    ))
+                    break
                 }
             } catch (e: Exception) {
                 Toast.makeText(this, "ERROR: ${e.message}", Toast.LENGTH_LONG).show()
             }
         }
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -59,7 +63,7 @@ class RedirActivity : AppCompatActivity() {
 
     fun openQRscanner(){
         val options = ScanOptions()
-        options.setPrompt("Scan any QR code of meds")
+        options.setPrompt("Escanea el QR del medicamento: '${medicamento.nombre}'")
         options.setBeepEnabled(true)
         options.setOrientationLocked(true)
         options.setCaptureActivity(CaptureActivity::class.java)
@@ -68,8 +72,10 @@ class RedirActivity : AppCompatActivity() {
 
     private val barcodeLauncher = registerForActivityResult(ScanContract()) { result ->
         if (result.contents == binding.tvRedirMedName.text) {
-            binding.tvRedirRessult.text = "¡Medicamento escaneado! : ${result.contents}"
-            binding.btnRedirVolver.visibility = View.VISIBLE
+            medicamento.actualizarUltimaFecha()
+            Toast.makeText(this, "'${medicamento.nombre}' escaneado correctamente!", Toast.LENGTH_LONG).show()
+            Utils.scheduleNotification(this, medicamento)
+            Utils.ChangeActivity(this, MainMenu::class.java)
 
         } else if(result.contents != binding.tvRedirMedName.text){
             Toast.makeText(this, "No es el medicamento pedido", Toast.LENGTH_LONG).show()

@@ -1,8 +1,19 @@
 package ifp.pmdm.aplicacioncitasmedicas.clases
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context.ALARM_SERVICE
+import android.content.Intent
+import android.provider.Settings
+import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
+import ifp.pmdm.aplicacioncitasmedicas.AgregarMedActivity
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Calendar
+import java.util.Locale
+import android.content.ContextWrapper
+import androidx.core.content.ContextCompat.startActivity
 
 enum class Frecuencia{
     DIA, SEMANA, MES, NADA
@@ -35,7 +46,7 @@ data class Medicamento(
     }
 
     fun getUltimaFechaString(format:String = "EEE dd MMM HH:mm"): String{
-        val formatoDia = SimpleDateFormat(format)
+        val formatoDia = SimpleDateFormat(format, Locale("es", "ES"))
         return formatoDia.format(ultimaFecha)
     }
 

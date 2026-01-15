@@ -1,7 +1,14 @@
 package ifp.pmdm.aplicacioncitasmedicas
 
+import android.Manifest
+import android.app.AlarmManager
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Typeface
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.Gravity
 import android.widget.Button
 import android.widget.ImageView
@@ -9,7 +16,9 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.scaleMatrix
 import androidx.core.view.ViewCompat
@@ -27,7 +36,6 @@ import androidx.core.content.edit
 class MainMenu : AppCompatActivity() {
     lateinit var binding: ActivityMainMenuBinding
     val listaMedicamentos = mutableListOf<Medicamento>()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,18 +64,44 @@ class MainMenu : AppCompatActivity() {
             //TODO: Mostrar una pantallita que esta vacio
         }
 
+        getPermissions()
+
         binding.btnAddMed.setOnClickListener {
             Utils.ChangeActivity(this, AgregarMedActivity::class.java)
         }
-        binding.btnNoti.setOnClickListener {
-            Utils.ChangeActivity(this, RedirActivity::class.java)
-        }
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
     }
+
+    private fun getPermissions() {
+        if (checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS)
+            != PackageManager.PERMISSION_GRANTED)
+        {
+            requestPermissions(
+                arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                1001)
+        }
+
+        if (checkSelfPermission(Manifest.permission.CAMERA)
+            != PackageManager.PERMISSION_GRANTED)
+        {
+            requestPermissions(
+                arrayOf(Manifest.permission.CAMERA),
+                1001)
+        }
+
+        val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+
+        if (!alarmManager.canScheduleExactAlarms()) {
+            val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
+            startActivity(intent)
+        }
+    }
+
     private fun createCard(med: Medicamento) {
 
         // layout principal

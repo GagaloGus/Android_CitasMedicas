@@ -16,17 +16,18 @@ const val defaultChannelID = "channelDefault"
 const val importantChannelID = "channelImportant"
 const val titleExtraKey = "titleExtra"
 const val messageExtraKey = "MessageExtra"
-const val codigoExtraKey = "codigoQR"
+const val codigoExtraKey = "codigoQRExtra"
 
 class Notificacion : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
+        Toast.makeText(context, "${intent.getStringExtra(titleExtraKey)}", Toast.LENGTH_SHORT).show()
         val newIntent = Intent(context, RedirActivity::class.java).apply {
             putExtra(codigoExtraKey, intent.getStringExtra(codigoExtraKey))
         }
 
         val resultPendingIntent = TaskStackBuilder.create(context).run{
             addNextIntentWithParentStack(newIntent)
-            getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
+            getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
         }
 
         val notification = NotificationCompat.Builder(context, defaultChannelID)

@@ -22,9 +22,6 @@
         <receiver android:name=".clases.Notificacion"
             android:enabled="true"/>
         <activity
-            android:name=".RecordatorioActivity"
-            android:exported="false" />
-        <activity
             android:name=".AgregarMedActivity"
             android:exported="false" />
         <activity
@@ -32,9 +29,6 @@
             android:exported="false" />
         <activity
             android:name=".RedirActivity"
-            android:exported="false" />
-        <activity
-            android:name=".NotifActivity"
             android:exported="false" />
         <activity
             android:name=".MainMenu"

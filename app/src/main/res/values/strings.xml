@@ -23,4 +23,7 @@
     <string name="txt_codigoScan">Codigo escaneado: %1$s</string>
     <string name="btn_back">Volver</string>
     <string name="tv_TomarMed">¡Toma tu medicamento!</string>
+    <string name="txt_recordatorioNombreMed">Nombre: %1$s</string>
+    <string name="txt_recordatorioDosisMed">Dosis: %1$s</string>
+    <string name="txt_recordatorioHoraMed">Hora: %1$s</string>
 </resources>
