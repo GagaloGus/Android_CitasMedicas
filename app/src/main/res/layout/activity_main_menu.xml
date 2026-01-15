@@ -138,4 +138,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <Button
+        android:id="@+id/btn_noti"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/gl_bottomMain"
+        app:layout_constraintEnd_toStartOf="@+id/btn_AddMed"
+        app:layout_constraintStart_toStartOf="@+id/gl_LeftMain" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

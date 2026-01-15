@@ -5,27 +5,188 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F03131"
     tools:context=".RedirActivity">
-    <Button
-        android:id="@+id/redir_btnVolver"
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_LeftRedir"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Volver"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_rightRedir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_topRedir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_bottomRedir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.97427654" />
+
+    <ImageView
+        android:id="@+id/iv_RedirBell"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        app:layout_constraintEnd_toStartOf="@+id/gl_rightRedir"
+        app:layout_constraintStart_toStartOf="@+id/gl_LeftRedir"
+        app:layout_constraintTop_toTopOf="@+id/gl_topRedir"
+        app:srcCompat="@drawable/white_round" />
+
+    <ImageView
+        android:id="@+id/iv_RedirBellBack"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:foregroundTint="@color/dark_white"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_RedirBell"
+        app:layout_constraintEnd_toEndOf="@+id/iv_RedirBell"
+        app:layout_constraintStart_toStartOf="@+id/iv_RedirBell"
+        app:layout_constraintTop_toTopOf="@+id/iv_RedirBell"
+        app:layout_constraintVertical_bias="0.43"
+        app:srcCompat="@drawable/bell" />
+
+    <LinearLayout
+        android:id="@+id/ly_RedirInfo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"></LinearLayout>
 
     <TextView
-        android:id="@+id/notif_tvTitulo"
-        android:layout_width="231dp"
-        android:layout_height="58dp"
-        android:layout_marginBottom="24dp"
+        android:id="@+id/tv_RedirTitulo"
+        android:layout_width="326dp"
+        android:layout_height="51dp"
         android:gravity="center"
-        android:text="Menu redirigio"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/redir_btnVolver"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:text="@string/tv_TomarMed"
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/gl_rightRedir"
+        app:layout_constraintStart_toStartOf="@+id/gl_LeftRedir"
+        app:layout_constraintTop_toBottomOf="@+id/iv_RedirBell" />
+
+    <TextView
+        android:id="@+id/tv_RedirMedName"
+        android:layout_width="326dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="3dp"
+        android:gravity="center"
+        android:text="Nombre med"
+        android:textAlignment="textStart"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/tv_RedirDosisMed"
+        app:layout_constraintEnd_toStartOf="@+id/gl_rightRedir"
+        app:layout_constraintStart_toStartOf="@+id/gl_LeftRedir"
+        app:layout_constraintTop_toBottomOf="@+id/tv_RedirTitulo" />
+
+    <TextView
+        android:id="@+id/tv_RedirDosisMed"
+        android:layout_width="326dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="6dp"
+        android:gravity="center"
+        android:text="Dosis med"
+        android:textAlignment="textStart"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_RedirHoraMed"
+        app:layout_constraintEnd_toStartOf="@+id/gl_rightRedir"
+        app:layout_constraintStart_toStartOf="@+id/gl_LeftRedir"
+        app:layout_constraintTop_toBottomOf="@+id/tv_RedirMedName" />
+
+    <TextView
+        android:id="@+id/tv_RedirHoraMed"
+        android:layout_width="326dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:text="Hora med"
+        android:textAlignment="textStart"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_RedirInfoScan"
+        app:layout_constraintEnd_toStartOf="@+id/gl_rightRedir"
+        app:layout_constraintStart_toStartOf="@+id/gl_LeftRedir"
+        app:layout_constraintTop_toBottomOf="@+id/tv_RedirDosisMed" />
+
+    <TextView
+        android:id="@+id/tv_RedirInfoScan"
+        android:layout_width="326dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:text="@string/txt_medEscanerQR"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/iv_RedirBell2"
+        app:layout_constraintEnd_toStartOf="@+id/gl_rightRedir"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="@+id/gl_LeftRedir"
+        app:layout_constraintTop_toBottomOf="@+id/tv_RedirHoraMed" />
+
+    <ImageView
+        android:id="@+id/iv_RedirBell2"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_Redir_ressult"
+        app:layout_constraintEnd_toStartOf="@+id/gl_rightRedir"
+        app:layout_constraintStart_toStartOf="@+id/gl_LeftRedir"
+        app:layout_constraintTop_toBottomOf="@+id/tv_RedirInfoScan"
+        app:srcCompat="@drawable/white_round" />
+
+    <ImageView
+        android:id="@+id/iv_RedirCam"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_RedirBell2"
+        app:layout_constraintEnd_toEndOf="@+id/iv_RedirBell2"
+        app:layout_constraintStart_toStartOf="@+id/iv_RedirBell2"
+        app:layout_constraintTop_toTopOf="@+id/iv_RedirBell2"
+        app:layout_constraintVertical_bias="0.4"
+        app:srcCompat="@drawable/camera_red" />
+
+    <TextView
+        android:id="@+id/tv_Redir_ressult"
+        android:layout_width="319dp"
+        android:layout_height="28dp"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_RedirVolver"
+        app:layout_constraintEnd_toStartOf="@+id/gl_rightRedir"
+        app:layout_constraintStart_toStartOf="@+id/gl_LeftRedir"
+        app:layout_constraintTop_toBottomOf="@+id/iv_RedirBell2" />
+
+    <Button
+        android:id="@+id/btn_RedirVolver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:text="@string/btn_back"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/gl_bottomRedir"
+        app:layout_constraintEnd_toStartOf="@+id/gl_rightRedir"
+        app:layout_constraintStart_toStartOf="@+id/gl_LeftRedir" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
