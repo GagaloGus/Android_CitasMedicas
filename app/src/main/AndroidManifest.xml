@@ -25,13 +25,13 @@
             android:name=".AgregarMedActivity"
             android:exported="false" />
         <activity
-            android:name=".PermisosActivity"
+            android:name=".MainMenu"
             android:exported="false" />
         <activity
             android:name=".RedirActivity"
             android:exported="false" />
         <activity
-            android:name=".MainMenu"
+            android:name=".PermisosActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

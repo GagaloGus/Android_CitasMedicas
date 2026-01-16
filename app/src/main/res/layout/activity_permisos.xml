@@ -7,4 +7,169 @@
     android:layout_height="match_parent"
     tools:context=".PermisosActivity">
 
+    <ImageView
+        android:id="@+id/imglogo"
+        android:layout_width="303dp"
+        android:layout_height="104dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logomediscanpermisos" />
+
+    <TextView
+        android:id="@+id/texDescripcion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="56dp"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/texDescripcion"
+        app:layout_constraintTop_toBottomOf="@+id/imglogo"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/layoutNotificacion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/texDescripcion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp">
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:contentDescription="@string/texNotificacion"
+            app:srcCompat="@drawable/notificacion"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/texNotificacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/texNotificacion"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/texNotidescripcion"
+                android:layout_width="272dp"
+                android:layout_height="38dp"
+                android:text="@string/texNotidescripcion" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutCamara"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/layoutNotificacion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp">
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:contentDescription="@string/texNotificacion"
+            app:srcCompat="@drawable/noticamara"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/texCamara"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/texCamara"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/texDescamara"
+                android:layout_width="272dp"
+                android:layout_height="38dp"
+                android:text="@string/texDescamara" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutRecordatorios"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/layoutCamara"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp">
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:contentDescription="@string/texNotificacion"
+            app:srcCompat="@drawable/recordatorioq"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/texRecordatorio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/texRecordatorio"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/texRecodescripcion"
+                android:layout_width="272dp"
+                android:layout_height="38dp"
+                android:text="@string/texRecodescripcion" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnConceder"
+        android:layout_width="296dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/btnConceder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.53"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutRecordatorios" />
+
+    <Button
+        android:id="@+id/btnOmitir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="@string/btnOmitir"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.108"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnConceder" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
