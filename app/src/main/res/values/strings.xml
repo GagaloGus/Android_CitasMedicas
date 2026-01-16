@@ -25,16 +25,21 @@
     <!-- PERMISOS -->
     <string name="imglogo">logo</string>
     <string name="texNombre">MEDISCAN</string>
+    <string name="texBienvenida">¡BIENVENID@!</string>
     <string name="texDescripcion">Necesitamos algunos permisos para que la app funcione correctamente</string>
     <!-- PERMISOS NOTIFICACION -->
     <string name="texNotificacion">Permiso de notificaciones</string>
     <string name="texNotidescripcion">Necesario para avisarte que llego la hora de tomar el medicamento</string>
     <string name="imgNotificacion">logo</string>
+    <!-- PERMISOS RECORDATORIOS -->
+    <string name="texRecordatorio">Permiso de alarmas y recordatorios</string>
+    <string name="texRecodescripcion">Necesario para recordarte que pronto llegara la hora de tomar el medicamento</string>
+    <string name="imgRecordatorio">logo</string>
     <!-- PERMISOS CAMARA -->
     <string name="texCamara">Permiso para acceder a la camara</string>
     <string name="texDescamara">Necesario para registrar el codigo de barras que se encuentra en la caja o tableta del medicamento</string>
     <string name="imgCamara">logo</string>
-    <!-- BOTON -->
+    <!-- BOTONES -->
     <string name="btnConceder">CONCEDER PERMISOS</string>
     <string name="btnOmitir">OMITIR</string>
 
